@@ -1,0 +1,104 @@
+<!-- #id selectors -->
+<div id="divTest"></div>
+<script type="text/javaScript">
+    $(funtion()
+    {
+        $("#divTest").text("Test");
+    });
+</script>
+
+<!-- .class selectors -->
+<ul>
+    <li class="bold">Test 1</li>
+    <li>Test 2</li>
+    <li class="bold">Test 3</li>
+</ul>
+<script type="text/javascript">
+    $(function() {
+        $(".bold").css("font-weight", "bold");
+    });
+</script>
+
+<!-- Getting and setting content text(), html() and val() -->
+<div id="divTest2">
+    <b>Test</b>
+    <input type="text" id="txtTest" name="txtTest" value="Input field">
+</div>
+<script type="text/javascript">
+    $(function() 
+    {
+        alert("Text: " + $("#divTest2").text());
+        alert("HTML: " + $("#divTest").html());
+        alert("Value: " + $("#divTest"),val());
+
+        alert("Text: " + $("#txtTest").text("A dynamically set text"));
+        alert("HTML: " + $("#txtTest").html("<b>A dynamically set HTML string</b>"));
+        alert("Value: " + $("#txtTest").val("A dynamically set value"));
+    })
+</script>
+
+<p>Paragraph 1</p>
+<p>Paragraph 2</p>
+<p>Paragraph 3</p>
+
+<script type="text/javascript">
+    $(function()
+    {
+        $("p").text(function(index, oldText) {
+            return "Existing text: " + oldText + ". New text: A dynamically set text (#" + index + ")";
+        });
+    });
+</script>
+
+<!-- Getting and setting CSS classes -->
+<a href="javascript:void();" onclick="$(this).toggleClass('bold');">Toggle class</a>
+
+<!-- Select multiple elements and adding or removing multiple classes -->
+<div id="divTestArea1">
+    <span>Test 1</span><br>
+    <div>Test 2</div>
+    <b>Test 3</b>
+</div>
+<script type="text/javaScript">
+    $(function()
+    {
+        $("#divTestArea1 span, #divTestArea1 b").addClass("blue");
+        $("#divTestArea1 div").addClass("bold blue");
+    })
+</script>
+
+<!-- append() and prepend() methods -->
+<a href="javascript:void(0);" onclick="$('#olTestList').append('<li>Appended item</li>');">Append</a>
+<a href="javascript:void(0);" onclick="$('#olTestList1').prepend('<li>Prepended item</li>')">Prepend</a>
+
+<ol id="olTestList1">
+    <li>Existing item</li>
+    <li>Existing item</li>
+</ol>
+
+<a href="javascript:void(0);" onclick="AppendItemsToList();">Append items</a>
+<ol id="olTestList2"></ol>
+
+<script type="text/javascript">
+    function AppendItemsToList()
+    {
+        var item1 = $("<li></li>").text("Item 1");
+        var item2 = "<li>Item 2</li>";
+        var item3 = document.createElement("li");
+        item3.innerHTML = "Item 3";
+
+        $("#olTestList2").append(item1, item2, item3);
+    }
+</script>
+
+<!-- appendTo() and prependTo() -->
+<a href="javascript:void(0);" onclick="PrependItemsToList();">Prepend items</a>
+<ol id="olTestList3"></ol>
+
+<script type="text/javascript">
+    function PrependItemsToList()
+    {
+        $("#olTestList3").prepend($("<li></li>").text("prepend() item"));
+        $("<li></li>").text("prependTo() item").prependTo("#olTestList3");
+    }
+</script>
