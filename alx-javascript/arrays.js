@@ -80,3 +80,53 @@ console.log(removedItems); // ["Banana"]
 // copy an array
 const fruitsCopy = [...fruits];
 const fruitsCopy1 = Array.from(fruits);
+const fruitsCopy2 = fruits.slice();
+
+// typed arrays
+function toBinary(x, 
+    { type = "Float64", littleEndian = false, seperator = " ", radix = 16 } = {},
+) {
+    const bytesNeeded = 
+    globalThis[`${type}Array`].BYTES_PER_ELEMENT;
+    const dv = new DataView(new ArrayBuffer(bytesNeeded));
+    dv[`set${type}`](0, x, littleEndian);
+    const bytes = Array.from({ length: bytesNeeded }, (_, i) =>
+    dv
+    .getUint8(i)
+    .toString(radix)
+    .padStart(8 / Math.log2(radix), "0"),
+    );
+    return bytes.join(seperator);
+}
+
+console.log(toBinary(1.1)); // 3f f1 99 99 99 99 99 9a
+console.log(toBinary(1.1, { littleEndian: true})); // 9a 99 99 99 99 99 f1 3f
+console.log(toBinary(20, {type: "Int8", radix: 2 })); // 00010100
+
+// set
+// set objects are collections of values. A value in the set may only occur once; it is unique in the set's collection.
+const mySet1 = new Set();
+mySet1.add(1); // Set(1) { 1 }
+mySet1.add(5); // Set(2) { 1, 5 }
+mySet1.add(5); // Set(2) { 1, 5 }
+mySet1.add("some text"); // Set(3) { 1, 5, "some text" }
+const o = { a: 1, b: 2 };
+mySet1.add(o);
+
+
+// map
+// map objects are collections of key-value pairs where both the keys and values may be objects or primitive values.
+const myMap = new Map();
+myMap.set('a', 1);
+myMap.set('b', 2);
+myMap.set('c', 3);
+myMap.set('a', 4);
+
+console.log(myMap.get('a')); // 4
+
+// weakmap
+// weakmap objects are collections of key/value pairs in which the keys are weakly referenced. The keys must be objects and the values can be arbitrary values.
+const wm1 = new WeakMap();
+const key1 = {};
+wm1.set(key1, 37);
+console.log(wm1.get(key1)); // 37
