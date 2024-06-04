@@ -39,4 +39,44 @@ arr.copyWithin(0, 1, 2); // mutates arr
 const arr2 = arr.slice().copyWithin(0, 1, 2); // does not mutate arr
 const arr3 = [...arr].copyWithin(0, 1, 2); // does not mutate arr
 
-method(callbackFn, thisArg)
+method(callbackFn, thisArg) // callbackFn takes three arguments: element, index, array
+
+// iterative methods: every(), filter(), find(), findIndex(), findLast(), findLastIndex(), flatMap(), forEach(), map(), some()
+function method(callbackFn, thisArg) {
+    const length = this.length;
+    for (let i = 0; i < length; i++) {
+        if (i in this) {
+            const result = callbackFn.call(thisArg, this[i], i, this)
+        }
+    }
+}
+
+// Check if an array contains a certain item
+const fruits = ["Apple", "Banana"];
+fruits.includes("Banana"); // true
+fruits.includes("Cherry"); // false
+
+// If indexOf() doesn't return -1, the array contains the given item.
+fruits.indexOf("Banana") !== -1; // true
+fruits.indexOf("Cherry") !== -1; //false
+
+// append an item to an array
+const newLength = fruits.push("Orange");
+console.log(fruits); // ["Apple", "Banana", "Orange"]
+console.log(newLength); // 3
+
+// remove the last item from an array
+removedItem = fruits.pop()
+console.log(fruits); // ["Apple", "Banana"]
+console.log(removedItem); // "Orange"
+
+// remove multiple items from the end of an array
+const start = -3;
+const removedItems = fruits.splice(start);
+console.log(fruits); // ["Apple"]
+console.log(removedItems); // ["Banana"]
+
+
+// copy an array
+const fruitsCopy = [...fruits];
+const fruitsCopy1 = Array.from(fruits);
